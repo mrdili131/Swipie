@@ -1,0 +1,30 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/auth_css.css' %}"></link>
+</head>
+<body class="login-body">
+    <form class="login-div" method="post">
+        {% csrf_token %}
+        <h1>Login</h1>
+        <input class="login-field" name="username" type="text" placeholder="Username">
+        <input class="login-field" name="password" type="password" placeholder="Password">
+        <button class="login-btn" type="submit">Login</button>
+        <a href="{% url 'auth:register' %}">Already have an account ?</a>
+    </form>
+    
+</body>
+</html>
+
+<style>
+    .login-body{
+        background-image:url("{% static 'img/background.jpg' %}");
+    }
+
+    .login-div{
+        background-image: url("{% static 'img/squared_nb.jpg' %}");
+    }
+</style>

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <nav>
+        <a class="logo" href="#"><img src="{% static 'img/swipie_logo.png' %}" alt="Logo"></a>
+        <a href="{% url 'home' %}" class="active">Home</a>
+        <a href="#">Explore</a>
+        <a href="{% url 'upload' %}">Create</a>
+        <form method="get" style="margin: 0; display: flex;flex-direction: row; gap:20px">
+        <input type="text" value="{{query}}" name="q" class="search" placeholder="Search" style="width: 600px;">
+        <button id="search-btn" type="submit" class="icon">Search<i class="fas fa-bell"></i></button>
+        </form>
+        <a href="#" class="icon"><i class="fas fa-comment-dots"></i></a>
+        
+        {% if user.is_authenticated %}
+            <a href="#" id="profile-icon"><img src="{{ user.image.url }}" alt="User"></a>
+            <div id="profile-menu" class="profile-menu">
+                <a href="#">Profile</a>
+                <a href="#">Settings</a>
+                <a href="#">Saved</a>
+                <a href="{% url 'auth:logout' %}">Logout</a>
+            </div>
+        {% else %}
+            <a href="{% url 'auth:login' %}">Login</a>
+        {% endif %}
+    </nav>
+
+    <div id="loader" style="display: none;">Loading...</div>
+
+    <div id="container">
+        {% for post in images %}
+            <div class="col">
+                <div class="card">
+                    <a href="{% url 'image_view' post.id %}">
+                        <img src="{{ post.image.url }}" alt="Image" style="width: 100%;">
+                    </a>
+                    <p>{{ post.text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        {% if images.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ images.previous_page_number }}">Previous</a>
+        {% endif %}
+    
+        <span>Page {{ images.number }} of {{ images.paginator.num_pages }}</span>
+    
+        {% if images.has_next %}
+            <a href="?page={{ images.next_page_number }}">Next</a>
+        {% endif %}
+    
+        {% if images.number != images.paginator.num_pages %}
+            <a href="?page={{ images.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+
+
+    <script>
+        document.getElementById('profile-icon').addEventListener('click', function(event) {
+        event.preventDefault();
+        var profileMenu = document.getElementById('profile-menu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+    </script>
+    
+
+
+{% endblock content %}

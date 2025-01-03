@@ -1,0 +1,35 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/image_view.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navdiv">
+            <a href="{% url 'home' %}" class="navitem"><img class="navicon" src="{% static 'img/swipie_logo.png' %}" style="border-radius: 100%;"></a>
+            <a href="{% url 'upload' %}" class="navitem"><img class="navicon" src="{% static 'img/upload.png' %}"></a>
+            <a href="" class="navitem"><img class="navicon" src="{% static 'img/settings.jpg' %}"></a>
+        </div>
+    </nav>    
+    <div class="main-container">
+        <h1 class="page-name">Image name</h1>
+        <div class="image-container-main">
+            <div class="img-main">
+                <img class="image" src="{{image.image.url}}">
+            </div>
+            <div class="data">
+                <h1>Hello</h1>
+                <div><img src="{{image.user.image.url}}" style="border-radius: 50%; object-fit: cover;" width="30px" height="30px"> username</div>
+                <div class="buttons">
+                    <a href="" class="btn-black">Save</a>
+                    <a href="" class="btn-black">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+</script>
